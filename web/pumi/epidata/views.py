@@ -13,7 +13,9 @@ import json
 
 class LoginView(views.APIView):
     def post(self, request, format = None):
-        data = json.loads(request.POST)
+        print(request.POST)
+        req = request.body.decode('utf-8')
+        data = json.loads(req)
 
         username = data.get('username', None)
         password = data.get('password', None)
