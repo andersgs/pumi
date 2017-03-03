@@ -13,7 +13,7 @@ import json
 
 class LoginView(views.APIView):
     def post(self, request, format = None):
-        data = json.loads(request.body)
+        data = json.loads(request.POST)
 
         username = data.get('username', None)
         password = data.get('password', None)
