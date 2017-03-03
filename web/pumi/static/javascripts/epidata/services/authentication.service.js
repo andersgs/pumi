@@ -75,7 +75,6 @@
         * @memberOf pumi.epidata.service.Authentication
         **/
         function login(username, password) {
-            console.log(username, password);
             return $http.post('/api/v1/login/', {
                 username: username,
                 password: password

@@ -1,5 +1,6 @@
 from rest_framework import permissions, viewsets, status, views
 from rest_framework.response import Response
+from rest_framework.parsers import JSONParser
 
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
@@ -12,22 +13,15 @@ from epidata.permissions import isAccountOwner
 import json
 
 class LoginView(views.APIView):
+    parser_classes = (JSONParser,)
     def post(self, request, format = None):
-        print(request.POST)
-        req = request.body.decode('utf-8')
-        data = json.loads(req)
+        data = json.loads(request.body)
 
         username = data.get('username', None)
         password = data.get('password', None)
-        print(username, password)
-
         account = authenticate(username = username, password = password)
-        print(Account.objects.all()[0])
-        print(Account.objects.all()[0].password)
-        print(authenticate(username = 'test0001', password = 'test123%'))
 
         if account is not None:
-            pass
             if account.is_active:
                 login(request, account)
                 serialized = AccountSerializer(account)
